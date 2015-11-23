@@ -1,5 +1,7 @@
 package kata55;
 
+//Autor: José Vicente Cabañas
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,18 +27,19 @@ public class Kata5 {
       //Connection c = DriverManager.getConnection("jdbc:oracle:thin:@10.22.143.90:1521:orcl","system","orcl");
       
       Statement stmt = c.createStatement();
-      String fileName="";
+      String fileName="/Users/josevicentecabanas/Desktop/Mail.txt";
       BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)));
       
       String mail;
       
+      ResultSet rs = stmt.executeQuery("SELECT * FROM PEOPLE");
+      
       while ((mail=reader.readLine()) != null) {
+          System.out.println(mail);
           String query = "INSERT INTO MAIL (MAIL) VALUES ('" + mail + "')";
           stmt.executeUpdate(query);
       }
-      ResultSet rs = stmt.executeQuery("SELECT * FROM PEOPLE");
-      
-      
+            
       while (rs.next()){
           System.out.println("ID = " + rs.getInt("ID"));
           System.out.println("NAME = " + rs.getString("NAME"));
